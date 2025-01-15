@@ -44,10 +44,7 @@ class ImportController extends Controller
             'status' => 'pending',
         ]);
         ProcessUserImport::dispatch($import);
-        return response()->json([
-            'message' => 'Import started successfully!',
-            'import_id' => $import->id,
-        ]);
+        return redirect()->back();
     }
 
     public function show(Import $import)

@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: laravel-app
+        container_name: laravel-app-csv
         ports:
             - "80:80"
             - "9000:9000"
@@ -25,11 +25,12 @@ services:
     # Mysql Service
     db:
         image: mysql:8.0
-        container_name: laravel-db
+        container_name: laravel-db-mysql
         environment:
             MYSQL_DATABASE: csv_dashboard
             MYSQL_USER: dockeruser
             MYSQL_PASSWORD: dockerpassword
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         volumes:
             - db-data:/var/lib/postgresql/data
         ports:

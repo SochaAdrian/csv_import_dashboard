@@ -20,12 +20,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     pkg-config \
     libpq-dev \
-    sqlite3
+    sqlite3 \
+    libsqlite3-dev
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-configure intl && \
-    docker-php-ext-install -j$(nproc) pdo_mysql pdo_sqlite3 zip soap gd intl opcache pcntl xsl
+    docker-php-ext-install -j$(nproc) pdo_mysql pdo_sqlite zip soap gd intl opcache pcntl xsl
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer

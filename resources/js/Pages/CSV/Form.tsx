@@ -1,12 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useState, FormEventHandler } from 'react';
-import { useForm } from "@inertiajs/react";
+import {useForm, usePage} from "@inertiajs/react";
 
 export default function Form() {
     const { data, setData, post, processing, errors, reset } = useForm({
         file: null,
     });
 
+
+    const [success, setSuccess] = useState(false);
     const [csvPreview, setCsvPreview] = useState(''); // State for CSV preview
 
     const handleFileChange = (e) => {
@@ -33,6 +35,9 @@ export default function Form() {
                 reset('file');
                 setCsvPreview('');
             },
+            onSuccess: () => {
+                setSuccess(true);
+            }
         });
     };
 
@@ -42,6 +47,11 @@ export default function Form() {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
+                            {success && (
+                                <div className="p-4 mb-4 text-green-800 bg-green-100 border-l-4 border-green-500">
+                                    File uploaded successfully.
+                                </div>
+                            )}
                             <form onSubmit={submit} className="space-y-4">
                                 <div>
                                     <label
