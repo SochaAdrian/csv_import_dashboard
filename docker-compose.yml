@@ -1,0 +1,39 @@
+services:
+    # Application Service
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel-app
+        ports:
+            - "80:80"
+            - "9000:9000"
+            - "8000:8000"
+            - "8080:8080"
+        depends_on:
+            - db
+        environment:
+            DB_CONNECTION: mysql
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: csv_dashboard
+            DB_USERNAME: dockeruser
+            DB_PASSWORD: dockerpassword
+        volumes:
+            - .env.example:/var/www/html/.env
+
+    # Mysql Service
+    db:
+        image: mysql:8.0
+        container_name: laravel-db
+        environment:
+            MYSQL_DATABASE: csv_dashboard
+            MYSQL_USER: dockeruser
+            MYSQL_PASSWORD: dockerpassword
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        ports:
+            - "3306:3306"
+
+volumes:
+    db-data:
