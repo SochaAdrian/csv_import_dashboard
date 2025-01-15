@@ -32,4 +32,4 @@
     docker compose up
     ```
 
-4. Aplikacja będzie dostępna pod adresem `http://localhost`.
+4. Aplikacja będzie dostępna pod adresem `http://localhost`. Ze względu na to że aplikacja sama się podnosi i wykonują się migracje, a mysql zamyka tymczasowy serwer po inicjalizacji do skryptu startowego dodany został sleep który sprawdza czy mysql działa konkretna ilosc czasu i wtedy odpala kolejki serwer i migracje, stad proces startu moze trwać do około minuty (tutaj to tylko kwestia wygody odpalenia aplikacji)
